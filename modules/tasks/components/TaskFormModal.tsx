@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 
 import Modal from "@/components/common/Modal";
@@ -16,6 +15,8 @@ import { Task, TaskPriority, TaskStatus } from "../types";
 import { useTaskStore } from "../store/useTaskStore";
 import { Option } from "@/components/common/form/types";
 import { TASK_PRIORITIES, TASK_STATUSES } from "../constants";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { TaskFormValues, taskSchema } from "../schema/task.schema";
 
 type TaskFormModalProps = {
   isOpen: boolean;
@@ -55,7 +56,8 @@ export default function TaskFormModal({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<TaskFormValues>({
+    resolver: zodResolver(taskSchema),
     defaultValues,
   });
 
@@ -68,7 +70,7 @@ export default function TaskFormModal({
     }
   }, [existingTask, reset]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: TaskFormValues) => {
     console.log("data", data);
     if (existingTask) {
       updateTask({ ...existingTask, ...data });

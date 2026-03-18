@@ -18,3 +18,9 @@ export const filterTasks = (tasks: Task[], filters: Filters) => {
     return matchesSearch && matchesStatus && matchesPriority && matchesAssignee;
   });
 };
+
+export const extractValues = <T extends readonly { value: string }[]>(arr: T) =>
+  arr.map((item) => item.value) as [
+    T[number]["value"],
+    ...T[number]["value"][],
+  ];
