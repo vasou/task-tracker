@@ -1,6 +1,7 @@
-export type TaskStatus = "PENDING" | "IN_PROGRESS" | "FOR_REVIEW" | "COMPLETED";
+import { TASK_PRIORITIES, TASK_STATUSES } from "./constants";
 
-export type TaskPriority = "LOW" | "MEDIUM" | "HIGH";
+export type TaskStatus = (typeof TASK_STATUSES)[number]["value"];
+export type TaskPriority = (typeof TASK_PRIORITIES)[number]["value"];
 
 export type Task = {
   id: string;
@@ -10,8 +11,6 @@ export type Task = {
   assignee?: string;
   dueDate?: string; // ISO date string
   status: TaskStatus;
-  // createdAt: string; // ISO date string
-  // updatedAt: string; // ISO date string
 };
 
 export type Filters = {

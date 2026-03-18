@@ -5,8 +5,13 @@ import { useTaskStore } from "../store/useTaskStore";
 import { TASK_STATUSES } from "../constants";
 import { filterTasks } from "../utils";
 import TaskColumn from "./TaskColumn";
+import { Task } from "../types";
 
-export default function TaskBoard() {
+type TaskBoardProps = {
+  onEdit: (task: Task) => void;
+};
+
+export default function TaskBoard({ onEdit }: TaskBoardProps) {
   const tasks = useTaskStore((s) => s.tasks);
   const filters = useTaskStore((s) => s.filters);
 
@@ -15,15 +20,17 @@ export default function TaskBoard() {
   }, [tasks, filters]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      {TASK_STATUSES.map((status) => (
-        <TaskColumn
-          key={status.key}
-          status={status.key}
-          title={status.label}
-          tasks={filteredTasks.filter((task) => task.status === status.key)}
-        />
-      ))}
+    <div className="overflow-x-auto">
+      <div className="grid grid-flow-col auto-cols-[340px] xl:grid-cols-4 xl:auto-cols-auto gap-4 max-h-[calc(100vh-120px)]">
+        {TASK_STATUSES.map((status) => (
+          <TaskColumn
+            key={status.value}
+            title={status.label}
+            tasks={filteredTasks.filter((task) => task.status === status.value)}
+            onEdit={onEdit}
+          />
+        ))}
+      </div>
     </div>
   );
 }
