@@ -15,11 +15,12 @@ export default function InputField({
   type = "text",
   value,
   onChange,
+  isRequired,
 }: InputFieldProps) {
   const isControlled = value !== undefined && onChange;
 
   return (
-    <FormFieldWrapper label={label} error={error}>
+    <FormFieldWrapper label={label} error={error} isRequired={isRequired}>
       <input
         type={type}
         className={`input input-bordered w-full ${error ? "input-error" : ""}`}

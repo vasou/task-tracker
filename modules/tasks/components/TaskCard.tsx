@@ -1,4 +1,6 @@
+import { TASK_PRIORITIES, TASK_STATUSES } from "../constants";
 import { Task } from "../types";
+import { getTaskLabel } from "../utils";
 
 type TaskCardProps = {
   task: Task;
@@ -6,10 +8,9 @@ type TaskCardProps = {
 };
 
 export default function TaskCard({ task, onEdit }: TaskCardProps) {
-  console.log("task", task);
   return (
     <div
-      className="card bg-base-100 shadow-sm border cursor-pointer hover:shadow-md transition"
+      className="card bg-base-100 shadow-sm border cursor-pointer hover:shadow-md transition hover:bg-white/10"
       onClick={() => onEdit(task)}
     >
       <div className="card-body p-3 gap-2">
@@ -25,8 +26,12 @@ export default function TaskCard({ task, onEdit }: TaskCardProps) {
         )}
 
         <div className="flex flex-wrap gap-2 mt-2 text-xs">
-          <span className="badge badge-outline">{task.priority}</span>
-          <span className="badge badge-info badge-outline">{task.status}</span>
+          <span className="badge badge-outline">
+            {getTaskLabel(TASK_PRIORITIES, task.priority)}
+          </span>
+          <span className="badge badge-info badge-outline">
+            {getTaskLabel(TASK_STATUSES, task.status)}
+          </span>
         </div>
 
         <div className="flex justify-between items-center text-xs mt-2 opacity-70">

@@ -9,9 +9,14 @@ import InputField from "@/components/common/form/InputField";
 export default function TaskFilters() {
   const filters = useTaskStore((s) => s.filters);
   const setFilters = useTaskStore((s) => s.setFilters);
+  const clearFilters = useTaskStore((s) => s.clearFilters);
+
+  const hasFilters = Object.values(filters).some(
+    (value) => value !== undefined && value !== "",
+  );
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-4 max-sm:grid-cols-2 gap-3 items-center">
       <SelectField
         label="Status"
         options={TASK_STATUSES}
@@ -40,6 +45,14 @@ export default function TaskFilters() {
           setFilters({ assignee: value ? (value as string) : undefined });
         }}
       />
+      {hasFilters && (
+        <p
+          className="pt-6 underline text-sm cursor-pointer"
+          onClick={clearFilters}
+        >
+          Clear filter
+        </p>
+      )}
     </div>
   );
 }

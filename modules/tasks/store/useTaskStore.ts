@@ -10,6 +10,7 @@ type TaskState = {
   updateTask: (task: Task) => void;
   deleteTask: (id: string) => void;
   setFilters: (filters: Partial<Filters>) => void;
+  clearFilters: () => void;
 };
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -38,5 +39,8 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     set((state) => ({
       filters: { ...state.filters, ...filters },
     }));
+  },
+  clearFilters: () => {
+    set({ filters: {} });
   },
 }));

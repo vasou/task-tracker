@@ -71,7 +71,6 @@ export default function TaskFormModal({
   }, [existingTask, reset]);
 
   const onSubmit = (data: TaskFormValues) => {
-    console.log("data", data);
     if (existingTask) {
       updateTask({ ...existingTask, ...data });
     } else {
@@ -80,21 +79,25 @@ export default function TaskFormModal({
         ...data,
       });
     }
-
     onClose();
+    reset();
   };
 
   const handleDelete = () => {
     if (!existingTask) return;
-
     deleteTask(existingTask.id);
     onClose();
+  };
+
+  const handleClose = () => {
+    onClose();
+    reset();
   };
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       title={existingTask ? "Edit Task" : "Create Task"}
       actions={
         <div className="w-full flex items-center justify-between gap-4">
@@ -110,7 +113,7 @@ export default function TaskFormModal({
             )}
           </div>
           <div className="flex gap-4">
-            <button type="button" className="btn" onClick={onClose}>
+            <button type="button" className="btn" onClick={handleClose}>
               Cancel
             </button>
             <button type="submit" form="task-form" className="btn btn-primary">
@@ -130,6 +133,7 @@ export default function TaskFormModal({
           name="title"
           register={register}
           error={errors.title}
+          isRequired
         />
 
         <TextareaField
@@ -155,6 +159,7 @@ export default function TaskFormModal({
           name="assignee"
           register={register}
           error={errors.assignee}
+          isRequired
         />
 
         <DateField
@@ -162,6 +167,7 @@ export default function TaskFormModal({
           name="dueDate"
           register={register}
           error={errors.dueDate}
+          isRequired
         />
 
         <SelectField

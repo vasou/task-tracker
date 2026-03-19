@@ -20,7 +20,7 @@ export default function TaskBoard({ onEdit }: TaskBoardProps) {
   }, [tasks, filters]);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" tabIndex={-1}>
       <div className="grid grid-flow-col auto-cols-[340px] xl:grid-cols-4 xl:auto-cols-auto gap-4 max-h-[calc(100vh-120px)]">
         {TASK_STATUSES.map((status) => (
           <TaskColumn

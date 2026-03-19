@@ -25,3 +25,10 @@ export const extractValues = <T extends readonly { value: string }[]>(arr: T) =>
     T[number]["value"],
     ...T[number]["value"][],
   ];
+
+export const getTaskLabel = (
+  options: readonly { value: string; label: string }[],
+  value?: string,
+) => {
+  return options.find((opt) => opt.value === value)?.label || value;
+};

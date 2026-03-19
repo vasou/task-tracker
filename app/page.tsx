@@ -44,10 +44,12 @@ export default function Home() {
             </div>
             <div></div>
           </div>
-          <div className="flex items-center justify-between gap-4">
-            <div>
+          <div className="flex items-center max-md:flex-col-reverse max-md:items-end justify-between gap-4 py-8">
+            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 w-[85%] max-md:w-full max-w-300">
               <TaskSearch />
-              <TaskFilters />
+              <div className="">
+                <TaskFilters />
+              </div>
             </div>
             <button className="btn btn-primary" onClick={handleCreate}>
               + Add Task

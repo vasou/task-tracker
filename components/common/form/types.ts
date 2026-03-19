@@ -5,6 +5,7 @@ export type BaseFieldProps = {
   name?: string;
   register?: UseFormRegister<any>;
   error?: FieldError;
+  isRequired?: boolean;
 };
 
 export type CommonFieldProps = {

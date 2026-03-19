@@ -14,7 +14,7 @@ export default function FormFieldWrapper({
   return (
     <div>
       <label className="label">
-        {label} {isRequired && <span className="text-error ml-1">*</span>}
+        {label} {isRequired && <span className="text-error">*</span>}
       </label>
       {children}
       {error && <p className="text-error text-xs mt-1">{error.message}</p>}

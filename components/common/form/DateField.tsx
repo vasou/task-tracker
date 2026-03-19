@@ -6,9 +6,10 @@ export default function DateField({
   name,
   register,
   error,
+  isRequired,
 }: BaseFieldProps) {
   return (
-    <FormFieldWrapper label={label} error={error}>
+    <FormFieldWrapper label={label} error={error} isRequired={isRequired}>
       <input
         type="date"
         className={`input input-bordered w-full ${error ? "input-error" : ""}`}

@@ -1,10 +1,10 @@
 import { extractValues } from "./utils";
 
 export const TASK_STATUSES = [
-  { value: "PENDING", label: "Pending" },
+  { value: "BACKLOG", label: "Backlog" },
   { value: "IN_PROGRESS", label: "In Progress" },
-  { value: "FOR_REVIEW", label: "For Review" },
-  { value: "COMPLETED", label: "Completed" },
+  { value: "REVIEW", label: "Review" },
+  { value: "DONE", label: "Done" },
 ] as const;
 
 export const TASK_PRIORITIES = [
