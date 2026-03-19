@@ -63,5 +63,3 @@ Note: If Vitest cannot resolve the `@/` path alias, add an alias to `vitest.conf
 - Types: further tighten TypeScript types and add exhaustive checks for enums (status, priority).
 
 ---
-
-If you want, I can also add the Vitest alias fix to `vitest.config.ts` so tests can resolve `@/` imports, or run and confirm tests locally. Which would you prefer next?
