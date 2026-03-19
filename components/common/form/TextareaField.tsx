@@ -13,7 +13,7 @@ export default function TextareaField({
         className={`textarea textarea-bordered w-full ${
           error ? "textarea-error" : ""
         }`}
-        {...register(name)}
+        {...(register && name ? register(name) : {})}
       />
     </FormFieldWrapper>
   );

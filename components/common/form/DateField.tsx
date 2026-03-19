@@ -12,7 +12,7 @@ export default function DateField({
       <input
         type="date"
         className={`input input-bordered w-full ${error ? "input-error" : ""}`}
-        {...register(name)}
+        {...(register && name ? register(name) : {})}
       />
     </FormFieldWrapper>
   );

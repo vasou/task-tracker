@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import TaskBoard from "@/modules/tasks/components/TaskBoard";
+import TaskFilters from "@/modules/tasks/components/TaskFilter";
 import TaskFormModal from "@/modules/tasks/components/TaskFormModal";
+import TaskSearch from "@/modules/tasks/components/TaskSearch";
 import { useTaskStore } from "@/modules/tasks/store/useTaskStore";
 import { Task } from "@/modules/tasks/types";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const init = useTaskStore((state) => state.init);
@@ -40,11 +42,16 @@ export default function Home() {
               <h1 className="text-xl font-bold">Task Tracker</h1>
               <p>Welcome to the Task Tracker</p>
             </div>
+            <div></div>
+          </div>
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <button className="btn btn-primary" onClick={handleCreate}>
-                + Add Task
-              </button>
+              <TaskSearch />
+              <TaskFilters />
             </div>
+            <button className="btn btn-primary" onClick={handleCreate}>
+              + Add Task
+            </button>
           </div>
           <TaskBoard onEdit={handleEdit} />
           <TaskFormModal

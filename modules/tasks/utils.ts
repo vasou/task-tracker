@@ -1,10 +1,11 @@
 import { Filters, Task } from "./types";
 
 export const filterTasks = (tasks: Task[], filters: Filters) => {
+  const search = filters.search?.toLowerCase();
+  const assignee = filters.assignee?.toLowerCase();
+
   return tasks.filter((task) => {
-    const matchesSearch =
-      !filters.search ||
-      task.title.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesSearch = !search || task.title.toLowerCase().includes(search);
 
     const matchesStatus = !filters.status || task.status === filters.status;
 
@@ -12,8 +13,8 @@ export const filterTasks = (tasks: Task[], filters: Filters) => {
       !filters.priority || task.priority === filters.priority;
 
     const matchesAssignee =
-      !filters.assignee ||
-      task.assignee?.toLowerCase().includes(filters.assignee.toLowerCase());
+      !assignee ||
+      (task.assignee && task.assignee?.toLowerCase().includes(assignee));
 
     return matchesSearch && matchesStatus && matchesPriority && matchesAssignee;
   });

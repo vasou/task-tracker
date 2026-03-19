@@ -2,7 +2,9 @@ import FormFieldWrapper from "./FormFieldWrapper";
 import { BaseFieldProps, Option } from "./types";
 
 type SelectFieldProps = BaseFieldProps & {
-  options: Option[];
+  options: readonly Option[];
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
 export default function SelectField({
@@ -11,14 +13,20 @@ export default function SelectField({
   register,
   options,
   error,
+  value,
+  onChange,
 }: SelectFieldProps) {
+  const isControlled = value !== undefined && onChange;
+
   return (
     <FormFieldWrapper label={label} error={error}>
       <select
         className={`select select-bordered w-full ${
           error ? "select-error" : ""
         }`}
-        {...register(name)}
+        {...(!isControlled && register && name ? register(name) : {})}
+        value={isControlled ? value : undefined}
+        onChange={isControlled ? (e) => onChange(e?.target?.value) : undefined}
       >
         <option value="">Select {label}</option>
         {options.map((opt) => (
