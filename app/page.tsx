@@ -1,12 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TaskBoard from "@/modules/tasks/components/TaskBoard";
 import TaskFilters from "@/modules/tasks/components/TaskFilter";
-import TaskFormModal from "@/modules/tasks/components/TaskFormModal";
 import TaskSearch from "@/modules/tasks/components/TaskSearch";
 import { useTaskStore } from "@/modules/tasks/store/useTaskStore";
 import { Task } from "@/modules/tasks/types";
+import dynamic from "next/dynamic";
+
+const TaskBoard = dynamic(
+  () => import("@/modules/tasks/components/TaskBoard"),
+  {
+    loading: () => <p>Loading tasks...</p>,
+  },
+);
+const TaskFormModal = dynamic(
+  () => import("@/modules/tasks/components/TaskFormModal"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Home() {
   const init = useTaskStore((state) => state.init);
@@ -56,11 +68,13 @@ export default function Home() {
             </button>
           </div>
           <TaskBoard onEdit={handleEdit} />
-          <TaskFormModal
-            isOpen={isOpen}
-            onClose={handleClose}
-            existingTask={selectedTask}
-          />
+          {isOpen && (
+            <TaskFormModal
+              isOpen={isOpen}
+              onClose={handleClose}
+              existingTask={selectedTask}
+            />
+          )}
         </div>
       </main>
     </div>
